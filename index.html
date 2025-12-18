@@ -1,1 +1,43 @@
+<!DOCTYPE html>
 
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <title>Superhero Page</title>
+  </head>
+
+  <body>
+    <header
+      class="bg-sky-950 dark:bg-slate-900 text-white shadow-md transition-colors duration-300"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-20">
+          <div class="flex-shrink-0">
+            <img
+              src="./img/logo.jpg"
+              alt="Logo Superhero"
+              class="h-12 w-auto"
+            />
+          </div>
+
+          <div class="flex items-center">
+            <button
+              id="theme-toggle"
+              class="relative inline-flex h-8 w-14 items-center rounded-full bg-black border-2 border-red-600 transition-colors duration-300 focus:outline-none"
+            >
+              <span class="sr-only">Cambiar modo</span>
+              <span
+                id="switch-circle"
+                class="inline-block h-5 w-5 transform rounded-full bg-red-600 transition-transform duration-300 translate-x-1"
+              ></span>
+              <span id="theme-icon" class="ml-2 text-xs">🌙</span>
+            </button>
+          </div>
+    </header>
+  </body>
+</html>
