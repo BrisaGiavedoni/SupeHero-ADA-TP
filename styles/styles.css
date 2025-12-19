@@ -1,19 +1,19 @@
 :root {
   /* Modo claro */
-  --bg-main: #f0f4f8;      
-  --bg-card: #dc2626;       
-  --text-main: #ffffff;     
-  --accent:#1e293b;
+  --bg-main: #f0f4f8;
+  --bg-card: #dc2626;
+  --text-main: #ffffff;
+  --accent: #1e293b;
   --primary: #2563eb;
-  --border-color:#1e293b;  
-  --btn-bg:#2563eb;
+  --border-color: #1e293b;
+  --btn-bg: #2563eb;
   --btn-hover: #7f1d1d;
 }
 
 html.dark {
   /* Dark mode */
   --bg-main: #0a0a1a;
-  --bg-card: #1e293b; 
+  --bg-card: #1e293b;
   --text-main: #ffffff;
   --accent: #dc2626;
   --primary: #2563eb;
@@ -21,15 +21,7 @@ html.dark {
   --btn-bg: #dc2626;
   --btn-hover: #000000;
 }
-/* ======================
-.heroes-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 2rem;
-  padding: 2rem;
-}
 
-/* Unificamos el fondo en el body */
 body {
   background-image: url("../img/fondo.jpg");
   background-position: center;

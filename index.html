@@ -50,6 +50,22 @@
       </div>
     </header>
 
+    <!-- BANNER-->
+    <section
+      class="group w-full h-[60vh] min-h-[380px] bg-[var(--bg-card)] border-b-8 border-[var(--accent)] shadow-card overflow-hidden relative"
+    >
+      <img
+        src="./img/superheroesbanner.webp"
+        alt="Banner Superheroes"
+        class="absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-out group-hover:scale-110 group-hover:rotate-[0.5deg] group-hover:contrast-125 group-hover:saturate-125"
+      />
+
+      <!-- overlay -->
+      <div
+        class="absolute inset-0 bg-black/30 transition-all duration-700 group-hover:bg-black/10 group-hover:backdrop-contrast-125"
+      ></div>
+    </section>
+
     <!-- MAIN -->
     <main class="max-w-7xl mx-auto px-4 py-12">
       <!-- BUSCADOR -->
@@ -73,7 +89,7 @@
 
             <select
               id="race-filter"
-              class="min-w-[140px] p-4 rounded-lg font-bold border-2 border-transparent bg-[var(--bg-card)] text-[var(--text-main)] focus:border-[var(--accent)] cursor-pointer"
+              class="min-w-[140px] p-4 rounded-lg font-bold border-2 border-[var(--border-color)] bg-[var(--bg-card)] text-[var(--text-main)] focus:border-[var(--accent)] cursor-pointer"
             >
               <option value="">Raza</option>
               <option value="Human">Humano</option>
@@ -87,7 +103,7 @@
 
             <select
               id="gender-filter"
-              class="min-w-[140px] p-4 rounded-lg font-bold border-2 border-transparent bg-[var(--bg-card)] text-[var(--text-main)] focus:border-[var(--accent)] cursor-pointer"
+              class="min-w-[140px] p-4 rounded-lg font-bold border-2 border-[var(--border-color)] bg-[var(--bg-card)] text-[var(--text-main)] focus:border-[var(--accent)] cursor-pointer"
             >
               <option value="">Género</option>
               <option value="Male">Masculino</option>
@@ -97,7 +113,7 @@
 
             <select
               id="sort-order"
-              class="min-w-[140px] p-4 rounded-lg font-bold border-2 border-transparent bg-[var(--bg-card)] text-[var(--text-main)] focus:border-[var(--accent)] cursor-pointer"
+              class="min-w-[140px] p-4 rounded-lg font-bold border-2 border-[var(--border-color)] bg-[var(--bg-card)] text-[var(--text-main)] focus:border-[var(--accent)] cursor-pointer"
             >
               <option value="asc">A - Z</option>
               <option value="desc">Z - A</option>
@@ -105,7 +121,7 @@
 
             <button
               id="search-button"
-              class="bg-[var(--btn-bg)] hover:bg-[var(--btn-hover)] text-white font-black py-4 px-10 rounded-full transition-colors duration-300 shadow-card"
+              class="cursor-pointer bg-[var(--btn-bg)] hover:bg-[var(--btn-hover)] text-white font-black py-4 px-10 rounded-full transition-colors duration-300 shadow-card"
             >
               BUSCAR
             </button>
@@ -137,7 +153,7 @@
         <button
           id="prev-btn"
           disabled
-          class="bg-[var(--btn-bg)] hover:bg-[var(--btn-hover)] text-[var(--text-main)] font-black py-3 px-8 rounded-lg transition-all duration-300 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.2)] active:translate-y-1 active:shadow-none disabled:opacity-30 disabled:cursor-not-allowed uppercase tracking-widest text-sm"
+          class=" cursor-pointer bg-[var(--btn-bg)] hover:bg-[var(--btn-hover)] text-[var(--text-main)] font-black py-3 px-8 rounded-lg transition-all duration-300 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.2)] active:translate-y-1 active:shadow-none disabled:opacity-30 disabled:cursor-not-allowed uppercase tracking-widest text-sm"
         >
           Anterior
         </button>
@@ -157,7 +173,7 @@
 
         <button
           id="next-btn"
-          class="bg-[var(--btn-bg)] hover:bg-[var(--btn-hover)] text-[var(--text-main)] font-black py-3 px-8 rounded-lg transition-all duration-300 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.2)] active:translate-y-1 active:shadow-none disabled:opacity-30 disabled:cursor-not-allowed uppercase tracking-widest text-sm"
+          class="cursor-pointer bg-[var(--btn-bg)] hover:bg-[var(--btn-hover)] text-[var(--text-main)] font-black py-3 px-8 rounded-lg transition-all duration-300 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.2)] active:translate-y-1 active:shadow-none disabled:opacity-30 disabled:cursor-not-allowed uppercase tracking-widest text-sm"
         >
           Siguiente
         </button>
