@@ -1,86 +1,89 @@
+// main.js
 import { fetchHeroes } from "./api.js";
 import { applyFilters } from "./filters.js";
 import { paginate, totalPages } from "./pagination.js";
 import { renderCard, showDetails } from "./ui.js";
-import { initTheme } from "./theme.js";
+import { initDarkMode } from "./theme.js";
 
-const $searchInput = document.getElementById("hero-search");
-const $raceFilter = document.getElementById("race-filter");
-const $genderFilter = document.getElementById("gender-filter");
-const $sortOrder = document.getElementById("sort-order");
-const $searchBtn = document.getElementById("search-button");
-const $themeBtn = document.getElementById("theme-toggle");
+document.addEventListener("DOMContentLoaded", async () => {
+  initDarkMode();
 
-const $grid = document.getElementById("heroes-grid");
-const $details = document.getElementById("details");
+  // Elementos DOM
+  const heroesGrid = document.getElementById("heroes-grid");
+  const searchInput = document.getElementById("hero-search");
+  const raceFilter = document.getElementById("race-filter");
+  const genderFilter = document.getElementById("gender-filter");
+  const sortOrder = document.getElementById("sort-order");
+  const searchBtn = document.getElementById("search-button");
+  const prevBtn = document.getElementById("prev-btn");
+  const nextBtn = document.getElementById("next-btn");
+  const pageNum = document.getElementById("page-num");
+  const detailsSection = document.getElementById("details");
 
-const $prevBtn = document.getElementById("prev-btn");
-const $nextBtn = document.getElementById("next-btn");
-const $pageNum = document.getElementById("page-num");
+  let heroesData = [];
+  let currentPage = 1;
+  const heroesPerPage = 8;
 
-let heroes = [];
-let filteredHeroes = [];
-let page = 1;
-const ITEMS_PER_PAGE = 20;
+  const closeModal = () => {
+    detailsSection.classList.add("hidden");
+    detailsSection.innerHTML = "";
+  };
 
-initTheme($themeBtn);
-
-async function init() {
-  $grid.innerHTML = `<p class="col-span-full text-center">Cargando héroes...</p>`;
+  // Cargar héroes desde la API
   try {
-    heroes = await fetchHeroes();
-    filteredHeroes = [...heroes];
-    renderCurrentPage();
-  } catch {
-    $grid.innerHTML = `<p class="col-span-full text-center text-red-600">Error al cargar héroes</p>`;
+    heroesData = await fetchHeroes();
+    renderHeroes();
+  } catch (error) {
+    heroesGrid.innerHTML = '<p class="text-red-600">Error al cargar héroes</p>';
+    console.error(error);
   }
-}
 
-function renderCurrentPage() {
-  const heroesToShow = paginate(filteredHeroes, page, ITEMS_PER_PAGE);
-  $grid.innerHTML = "";
-  if (heroesToShow.length === 0) {
-    $grid.innerHTML = `<p class="col-span-full text-center">No se encontraron héroes</p>`;
+  function renderHeroes() {
+    heroesGrid.innerHTML = "";
+    const filters = {
+      search: searchInput.value,
+      race: raceFilter.value,
+      gender: genderFilter.value,
+      order: sortOrder.value,
+    };
+
+    const filtered = applyFilters(heroesData, filters);
+    const pages = totalPages(filtered, heroesPerPage);
+    const heroesToShow = paginate(filtered, currentPage, heroesPerPage);
+
+    heroesToShow.forEach((hero) =>
+      renderCard(hero, heroesGrid, (h) =>
+        showDetails(h, detailsSection, closeModal)
+      )
+    );
+
+    pageNum.textContent = currentPage;
+    prevBtn.disabled = currentPage === 1;
+    nextBtn.disabled = currentPage === pages || pages === 0;
   }
-  heroesToShow.forEach((hero) =>
-    renderCard(hero, $grid, (hero) => showDetails(hero, $details, closeModal))
-  );
-  $pageNum.textContent = page;
-  const pages = totalPages(filteredHeroes, ITEMS_PER_PAGE);
-  $prevBtn.disabled = page === 1;
-  $nextBtn.disabled = page === pages || pages === 0;
-}
 
-function closeModal() {
-  $details.classList.add("hidden");
-  $details.innerHTML = "";
-}
-
-/* =========================
-   EVENTOS
-========================= */
-$searchBtn.addEventListener("click", () => {
-  page = 1;
-  filteredHeroes = applyFilters(heroes, {
-    search: $searchInput.value,
-    race: $raceFilter.value,
-    gender: $genderFilter.value,
-    order: $sortOrder.value,
+  // Eventos
+  searchBtn.addEventListener("click", () => {
+    currentPage = 1;
+    renderHeroes();
   });
-  renderCurrentPage();
-});
 
-$prevBtn.addEventListener("click", () => {
-  if (page > 1) {
-    page--;
-    renderCurrentPage();
-  }
-});
-$nextBtn.addEventListener("click", () => {
-  if (page < totalPages(filteredHeroes, ITEMS_PER_PAGE)) {
-    page++;
-    renderCurrentPage();
-  }
-});
+  [searchInput, raceFilter, genderFilter, sortOrder].forEach((el) => {
+    el.addEventListener("change", () => {
+      currentPage = 1;
+      renderHeroes();
+    });
+  });
 
-init();
+  prevBtn.addEventListener("click", () => {
+    if (currentPage > 1) {
+      currentPage--;
+      renderHeroes();
+    }
+  });
+
+  nextBtn.addEventListener("click", () => {
+    currentPage++;
+    renderHeroes();
+  });
+});
