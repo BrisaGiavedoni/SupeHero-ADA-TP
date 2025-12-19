@@ -1,1 +1,186 @@
+<!DOCTYPE html>
 
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="./styles/styles.css" />
+
+    <title>Superhero Page</title>
+  </head>
+
+  <body
+    class="bg-[var(--bg-main)] min-h-screen text-[var(--text-main)] transition-colors duration-300"
+  >
+    <!-- HEADER -->
+    <header
+      class="bg-[var(--bg-card)] shadow-card p-4 transition-colors duration-300"
+    >
+      <div class="max-w-7xl mx-auto flex items-center justify-between h-20">
+        <img
+          src="./img/logo.jpg"
+          alt="Logo Superhero"
+          class="h-12 w-auto rounded-lg"
+        />
+
+        <!-- Toggle Dark Mode -->
+        <button
+          id="theme-toggle"
+          class="relative inline-flex h-8 w-14 items-center rounded-full bg-black border-2 border-red-600 transition-colors duration-300 focus:outline-none overflow-hidden"
+        >
+          <span class="sr-only">Cambiar modo</span>
+
+          <!-- Círculo -->
+          <span
+            id="switch-circle"
+            class="absolute left-1 top-1 h-5 w-5 rounded-full bg-red-600 transition-transform duration-300"
+          ></span>
+
+          <!-- Icono -->
+          <span
+            id="theme-icon"
+            class="absolute left-1 top-1 h-5 w-5 flex items-center justify-center text-xs text-white pointer-events-none transition-transform duration-300"
+          >
+            🌙
+          </span>
+        </button>
+      </div>
+    </header>
+
+    <!-- BANNER-->
+    <section
+      class="group w-full h-[60vh] min-h-[380px] bg-[var(--bg-card)] border-b-8 border-[var(--accent)] shadow-card overflow-hidden relative"
+    >
+      <img
+        src="./img/superheroesbanner.webp"
+        alt="Banner Superheroes"
+        class="absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-out group-hover:scale-110 group-hover:rotate-[0.5deg] group-hover:contrast-125 group-hover:saturate-125"
+      />
+
+      <!-- overlay -->
+      <div
+        class="absolute inset-0 bg-black/30 transition-all duration-700 group-hover:bg-black/10 group-hover:backdrop-contrast-125"
+      ></div>
+    </section>
+
+    <!-- MAIN -->
+    <main class="max-w-7xl mx-auto px-4 py-12">
+      <!-- BUSCADOR -->
+      <section class="mb-12">
+        <div
+          class="bg-[var(--bg-card)] p-8 rounded-2xl shadow-card border-b-8 border-[var(--accent)] transition-colors duration-300 backdrop-blur-sm"
+        >
+          <h2
+            class="text-3xl font-black text-[var(--text-main)] dark:text-[var(--accent)] mb-6 uppercase italic"
+          >
+            Encuentra a tu Héroe
+          </h2>
+
+          <div class="flex flex-wrap gap-5 justify-center items-center">
+            <input
+              id="hero-search"
+              type="text"
+              placeholder="Buscar por nombre..."
+              class="flex-1 min-w-[200px] p-4 rounded-lg border-2 border-[var(--border-color)] bg-[var(--bg-card)] text-[var(--text-main)] focus:border-[var(--accent)] outline-none transition-all shadow-inner"
+            />
+
+            <select
+              id="race-filter"
+              class="min-w-[140px] p-4 rounded-lg font-bold border-2 border-[var(--border-color)] bg-[var(--bg-card)] text-[var(--text-main)] focus:border-[var(--accent)] cursor-pointer"
+            >
+              <option value="">Raza</option>
+              <option value="Human">Humano</option>
+              <option value="Mutant">Mutante</option>
+              <option value="Cyborg">Cyborg</option>
+              <option value="Asgardian">Asgardiano</option>
+              <option value="Alien">Alienígena</option>
+              <option value="Kryptonian">Criptoniano</option>
+              <option value="God / Eternal">Dios</option>
+            </select>
+
+            <select
+              id="gender-filter"
+              class="min-w-[140px] p-4 rounded-lg font-bold border-2 border-[var(--border-color)] bg-[var(--bg-card)] text-[var(--text-main)] focus:border-[var(--accent)] cursor-pointer"
+            >
+              <option value="">Género</option>
+              <option value="Male">Masculino</option>
+              <option value="Female">Femenino</option>
+              <option value="-">N/A</option>
+            </select>
+
+            <select
+              id="sort-order"
+              class="min-w-[140px] p-4 rounded-lg font-bold border-2 border-[var(--border-color)] bg-[var(--bg-card)] text-[var(--text-main)] focus:border-[var(--accent)] cursor-pointer"
+            >
+              <option value="asc">A - Z</option>
+              <option value="desc">Z - A</option>
+            </select>
+
+            <button
+              id="search-button"
+              class="cursor-pointer bg-[var(--btn-bg)] hover:bg-[var(--btn-hover)] text-white font-black py-4 px-10 rounded-full transition-colors duration-300 shadow-card"
+            >
+              BUSCAR
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- RESULTADOS -->
+      <section id="results-section">
+        <h3
+          class="text-2xl font-bold text-[var(--accent)] mb-8 uppercase tracking-widest border-l-8 border-[var(--accent)] pl-4"
+        >
+          Héroes Encontrados
+        </h3>
+        <div
+          id="heroes-grid"
+          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
+        ></div>
+      </section>
+
+      <!-- MODAL DETALLES -->
+      <section id="details" class="hidden"></section>
+
+      <!-- PAGINACIÓN -->
+      <section
+        id="pagination"
+        class="flex gap-5 justify-center items-center mb-12 py-6"
+      >
+        <button
+          id="prev-btn"
+          disabled
+          class=" cursor-pointer bg-[var(--btn-bg)] hover:bg-[var(--btn-hover)] text-[var(--text-main)] font-black py-3 px-8 rounded-lg transition-all duration-300 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.2)] active:translate-y-1 active:shadow-none disabled:opacity-30 disabled:cursor-not-allowed uppercase tracking-widest text-sm"
+        >
+          Anterior
+        </button>
+
+        <div class="relative group">
+          <div
+            class="absolute -inset-1 bg-[var(--accent)] rounded-lg blur opacity-25 group-hover:opacity-50 transition duration-1000"
+          ></div>
+
+          <span
+            id="page-num"
+            class="relative py-2.5 px-6 bg-[var(--accent)] border-2 border-[var(--border-color)] rounded-lg text-xl font-black text-[var(--text-main)] italic inline-block"
+          >
+            1
+          </span>
+        </div>
+
+        <button
+          id="next-btn"
+          class="cursor-pointer bg-[var(--btn-bg)] hover:bg-[var(--btn-hover)] text-[var(--text-main)] font-black py-3 px-8 rounded-lg transition-all duration-300 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.2)] active:translate-y-1 active:shadow-none disabled:opacity-30 disabled:cursor-not-allowed uppercase tracking-widest text-sm"
+        >
+          Siguiente
+        </button>
+      </section>
+    </main>
+
+    <!-- MAIN JS -->
+    <script type="module" src="js/main.js"></script>
+  </body>
+</html>

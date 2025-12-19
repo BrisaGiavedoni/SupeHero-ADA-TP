@@ -1,0 +1,58 @@
+:root {
+  /* Modo claro */
+  --bg-main: #f0f4f8;
+  --bg-card: #dc2626;
+  --text-main: #ffffff;
+  --accent: #1e293b;
+  --primary: #2563eb;
+  --border-color: #1e293b;
+  --btn-bg: #2563eb;
+  --btn-hover: #7f1d1d;
+}
+
+html.dark {
+  /* Dark mode */
+  --bg-main: #0a0a1a;
+  --bg-card: #1e293b;
+  --text-main: #ffffff;
+  --accent: #dc2626;
+  --primary: #2563eb;
+  --border-color: #dc2626;
+  --btn-bg: #dc2626;
+  --btn-hover: #000000;
+}
+
+body {
+  background-image: url("../img/fondo.jpg");
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+/* Clase maestra para todos los botones tipo Comic */
+.btn-comic-main {
+  background-color: var(--comic-red);
+  color: white;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  transition: all 0.3s ease;
+  box-shadow: var(--comic-shadow-dark);
+  border: none;
+  cursor: pointer;
+}
+
+.btn-comic-main:hover:not(:disabled) {
+  background-color: #000;
+  transform: translate(-2px, -2px);
+}
+
+.btn-comic-main:active:not(:disabled) {
+  transform: translateY(2px);
+  box-shadow: none;
+}
+
+.dark .btn-comic-main {
+  box-shadow: var(--comic-shadow-light);
+}
