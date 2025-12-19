@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   let heroesData = [];
   let currentPage = 1;
-  const heroesPerPage = 8;
+  const heroesPerPage = 20;
 
   const closeModal = () => {
     detailsSection.classList.add("hidden");
